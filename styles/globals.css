@@ -1,0 +1,29 @@
+:root {
+  --primaria: #fac045;
+  --secundaria: #3079ff;
+  --branca: #fff;
+  --preta: #000;
+  --sucesso: #2ba118;
+  --alerta: rgb(255, 146, 4);
+  --cinza-800: #161616;
+  --cinza-200: #c7c7c7;
+}
+
+body {
+  margin: 0;
+  font-family: proxima-nova, sans-serif;
+  background-color: var(--cinza-800);
+}
+* {
+  box-sizing: border-box;
+}
+a,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.MuiButton-root {
+  font-weight: 500 !important;
+  letter-spacing: 1px;
+}
