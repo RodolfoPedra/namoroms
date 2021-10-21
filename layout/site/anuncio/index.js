@@ -3,7 +3,7 @@ import styled from "styled-components"
 import Galeria from "./galeria"
 import Ficha from "./ficha"
 import Descricao from "./descricao"
-import { getAnuncio } from 'api/controllers/pegar-anuncio';
+import { getAnuncio } from 'interface/controllers/pegar-anuncio';
 import { useRouter } from "next/router"
 import Loading from "components/loading"
 

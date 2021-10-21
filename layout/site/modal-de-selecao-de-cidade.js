@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 import React from "react"
 import styled from "styled-components"
 import { eventoGA } from 'utils/analytics';
-import { getCidades } from 'api/controllers/cidades';
+import { getCidades } from 'interface/controllers/cidades';
 import { initializeStore } from 'store/configureStore';
 import { getState } from 'utils/useLocalStorage';
 

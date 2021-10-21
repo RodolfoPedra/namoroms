@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { getAnuncios } from "api/controllers/pegar-anuncios";
+import { getAnuncios } from "interface/controllers/pegar-anuncios";
 import { useSelector } from "react-redux";
 import BlankSlate from "components/blank-slate";
 import { initializeStore } from 'store/configureStore';

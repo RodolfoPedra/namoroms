@@ -17,7 +17,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { obterCidades } from "api/cidades";
+import { obterCidades } from "interface/cidades";
 import { salvarDadosDoFormulario } from "utils/storage";
 import Icone from "components/icone";
 

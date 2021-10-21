@@ -6,10 +6,10 @@ import Icone from "components/icone";
 import BlankSlate from "components/blank-slate";
 import Anuncios from "./anuncios";
 import { useRouter } from "next/router";
-import { getAnunciosUsuario } from 'api/controllers/usuario-anuncios';
+import { getAnunciosUsuario } from 'interface/controllers/usuario-anuncios';
 import { useSelector } from "react-redux";
 import { getState } from "utils/useLocalStorage";
-import { putAprovarCartao } from "api/controllers/pagamento_cartao_aprovado";
+import { putAprovarCartao } from "interface/controllers/pagamento_cartao_aprovado";
 import Loading from "components/loading";
 
 const Home = () => {

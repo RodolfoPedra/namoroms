@@ -12,10 +12,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { useState } from "react";
 import lerURI from "utils/lerURI";
 import { useForm } from "react-hook-form";
-import { postUsuario } from 'api/controllers/criacao-conta';
+import { postUsuario } from 'interface/controllers/criacao-conta';
 import Loading from "components/loading";
-import { autenticar } from "api/controllers/autenticar";
-import { postDocumentos } from "api/controllers/subir-documentos";
+import { autenticar } from "interface/controllers/autenticar";
+import { postDocumentos } from "interface/controllers/subir-documentos";
 
 const FormularioDeCriacaoDeConta = ({ irParaLogin }) => {
   const [loadingAtivo, setLoadingAtivo] = useState(false)

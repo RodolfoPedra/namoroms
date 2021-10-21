@@ -7,7 +7,7 @@ import { useState, useEffect } from "react"
 import ModalMenu from "./modal-menu"
 import Icone from "components/icone"
 import { useRouter } from "next/router"
-import { getCidades } from 'api/controllers/cidades';
+import { getCidades } from 'interface/controllers/cidades';
 import { initializeStore } from 'store/configureStore';
 import { useSelector } from "react-redux"
 import { getState } from "utils/useLocalStorage"

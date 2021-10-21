@@ -5,7 +5,7 @@ import Icone from "components/icone";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { autenticar } from 'api/controllers/autenticar';
+import { autenticar } from 'interface/controllers/autenticar';
 import { initializeStore } from 'store/configureStore';
 import Loading from "components/loading";
 
