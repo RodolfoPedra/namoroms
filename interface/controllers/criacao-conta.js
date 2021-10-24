@@ -6,6 +6,7 @@ export const postUsuario = async (dataUser) => {
         "username": process.env.NEXT_PUBLIC_LOGIN,
         "password": process.env.NEXT_PUBLIC_LOGIN_KEY
     });
-    const result = await postData(dataUser, data.data.token);
+
+    const result = await postData(dataUser, data.token);
     return result;
 }

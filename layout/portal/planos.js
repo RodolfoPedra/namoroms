@@ -9,7 +9,7 @@ const Planos = () => {
 
   const escolherPlano = (plano, preco) => {
     salvarDadosDoFormulario({ plano, preco })
-    router.push("/portal/formulario")
+    router.push("/portal/formulario/")
   }
 
   return (

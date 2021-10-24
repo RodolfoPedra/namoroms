@@ -12,7 +12,7 @@ const ListaDeAnuncios = () => {
   const reduxStore = initializeStore();
   const [anuncios, setAnuncios] = useState([]);
   const router = useRouter();
-  const [loadingAtivo, setLoadingAtivo] = useState(false)
+  const [loadingAtivo, setLoadingAtivo] = useState(true)
 
   const irParaOAnuncio = (slug) => {
     router.push({
@@ -25,9 +25,11 @@ const ListaDeAnuncios = () => {
 
   useEffect(() => {
     (async () => {
+      setLoadingAtivo(true)
       const _filtros = filtros ? filtros : JSON.parse(localStorage.getItem("state"));
       const resultAnuncios = await getAnuncios(_filtros);
       setAnuncios(resultAnuncios.data);
+      setLoadingAtivo(false)
     })();
   }, [filtros.regiao, filtros.acompanhante]);
 
@@ -156,3 +158,212 @@ const Foto = styled.div`
     object-fit: cover;
   }
 `;
+
+//Mock
+const foto1 = "exemple1.jpg";
+const foto2 = "exemple2.jpg";
+const foto3 = "exemple3.jpg";
+const foto4 = "exemple4.jpg";
+const foto5 = "exemple5.jpg";
+const itens = [
+  {
+    nome: "Bruninha",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto1,
+  },
+  {
+    nome: "Gisele",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto2,
+  },
+  {
+    nome: "Verônica",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto3,
+  },
+  {
+    nome: "Letícia",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto4,
+  },
+  {
+    nome: "Malu Maitê",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto5,
+  },
+  {
+    nome: "Bruninha",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto1,
+  },
+  {
+    nome: "Gisele",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto2,
+  },
+  {
+    nome: "Verônica",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto3,
+  },
+  {
+    nome: "Letícia",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto4,
+  },
+  {
+    nome: "Malu Maitê",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto5,
+  },
+  {
+    nome: "Bruninha",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto1,
+  },
+  {
+    nome: "Gisele",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto2,
+  },
+  {
+    nome: "Verônica",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto3,
+  },
+  {
+    nome: "Letícia",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto4,
+  },
+  {
+    nome: "Malu Maitê",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto5,
+  },
+  {
+    nome: "Bruninha",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto1,
+  },
+  {
+    nome: "Gisele",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto2,
+  },
+  {
+    nome: "Verônica",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto3,
+  },
+  {
+    nome: "Letícia",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto4,
+  },
+  {
+    nome: "Malu Maitê",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto5,
+  },
+  {
+    nome: "Bruninha",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto1,
+  },
+  {
+    nome: "Gisele",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto2,
+  },
+  {
+    nome: "Verônica",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto3,
+  },
+  {
+    nome: "Letícia",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto4,
+  },
+  {
+    nome: "Malu Maitê",
+    telefone: "(67) 99654-7312",
+    comLocal: true,
+    cidade: "Campo Grande",
+    estado: "MS",
+    imagem: foto5,
+  },
+];

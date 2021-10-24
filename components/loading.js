@@ -3,7 +3,7 @@ import Icone from "./icone"
 
 const Loading = ({ ativo }) => {
   return (
-    <Container className={ativo && "carregamentoAtivo"}>
+    <Container className={!ativo && "carregamentoInativo"}>
       <Icone nome="autorenew" />
     </Container>
   )
@@ -27,7 +27,7 @@ const rotate = keyframes`
 
 const Container = styled.div`
   z-index: 1400;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   position: fixed;
@@ -36,8 +36,8 @@ const Container = styled.div`
   width:100vw;
   height:100vh;
   background-color: rgba(0,0,0,0.7);
-  &.carregamentoAtivo {
-    display: flex;
+  &.carregamentoInativo {
+    display: none !important;
   }
   .material-icons-round {
     display: flex;

@@ -24,19 +24,19 @@ const FormularioDeLogin = ({ irParaCriacaoDeConta, state }) => {
       if (status === 200) {
         dispatch({
           type: 'token',
-          token: data.data.token
+          token: data.token
         })
         dispatch({
           type: 'nomeUsuario',
-          nomeUsuario: data.data.displayName
+          nomeUsuario: data.user_display_name
         })
         dispatch({
           type: 'usuarioId',
-          usuarioId: data.data.email
+          usuarioId: data.user_email
         })
-        localStorage.setItem("nomeUsuario", data.data.displayName);
-        localStorage.setItem("token", data.data.token);
-        localStorage.setItem("usuarioId", data.data.email);
+        localStorage.setItem("nomeUsuario", data.user_display_name);
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("usuarioId", data.user_email);
         router.push("/portal/inicio");
       }
     } catch (error) {

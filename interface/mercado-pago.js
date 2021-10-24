@@ -29,7 +29,7 @@ const obterDadosMP = (title, price) => {
     auto_return: "approved",
   };
 
-  const respostaDaAPI = () => {
+  const respostaDaAPI = () =>
     fetch(
       `https://api.mercadopago.com/checkout/preferences?access_token=${process.env.NEXT_PUBLIC_ACCESS_TOKEN_MP}`,
       {
@@ -42,8 +42,7 @@ const obterDadosMP = (title, price) => {
         return resposta;
       });
 
-    return respostaDaAPI();
-  };
-}
+  return respostaDaAPI();
+};
 
 export default obterDadosMP;

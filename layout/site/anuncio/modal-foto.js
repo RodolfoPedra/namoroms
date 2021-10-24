@@ -85,14 +85,17 @@ const Imagem = styled.div`
     height: auto;
     max-height: 90vh;
     max-width: auto;
+    height: 100%;
+    width:100%;
     img {
-      width: 100%;
-      object-fit: initial;
       @media screen and (max-width: 800px) {
         height: auto;
         object-fit: initial;
         width: 100%;
       }
+      height: 100%;
+      object-fit: initial;
+      max-height: 100%;
     }
   }
 `

@@ -45,7 +45,7 @@ const FormularioParaAnuncio = () => {
 
   const finalizarCadastro = () => {
     alert("Cadastro Finalizado com sucesso");
-    router.push("/portal/inicio");
+    router.push("/portal/inicio/");
   };
 
   return (

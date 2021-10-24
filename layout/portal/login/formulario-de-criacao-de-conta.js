@@ -39,12 +39,13 @@ const FormularioDeCriacaoDeConta = ({ irParaLogin }) => {
           if (res.status === 200) {
             autenticar({ "username": e.novoEmail, "password": e.novaSenha }).then(response => {
               if (response.status === 200) {
-                postDocumentos(documentos, response.data.data.token).then(res => {
+                postDocumentos(documentos, response.data.token).then(res => {
                   if (res.status === 200) {
-                    localStorage.setItem("nomeUsuario", response.data.data.displayName);
-                    localStorage.setItem("token", response.data.data.token);
-                    localStorage.setItem("usuarioId", response.data.data.email);
+                    localStorage.setItem("nomeUsuario", response.data.user_display_name);
+                    localStorage.setItem("token", response.data.token);
+                    localStorage.setItem("usuarioId", response.data.user_email);
                     irParaLogin();
+                    setLoadingAtivo(false)
                   }
                 })
               }
@@ -54,9 +55,8 @@ const FormularioDeCriacaoDeConta = ({ irParaLogin }) => {
       }
     } catch (error) {
       alert("O e-mail já existe")
+      setLoadingAtivo(false)
     }
-
-    setLoadingAtivo(false)
   }
 
   const [novaSenha, setNovaSenha] = useState("");
