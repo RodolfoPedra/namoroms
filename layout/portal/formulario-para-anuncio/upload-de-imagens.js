@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Icone from "components/icone";
 import lerURI from "utils/lerURI";
 import Button from "@material-ui/core/Button";
+import Loading from "components/loading";
 
 const UploadDeImagens = ({
   imagensGaleria,
@@ -10,9 +11,13 @@ const UploadDeImagens = ({
   setImagensGaleria,
   setImagemPrincipal,
   avancarEtapa }) => {
+  
+  const [loadingAtivo, setLoadingAtivo] = useState(false)
 
   const handleImages = (e) => {
+    setLoadingAtivo(true);
     lerURI(e).then((images) => {
+      setLoadingAtivo(false);
       setImagensGaleria(images);
     });
   };
@@ -38,6 +43,7 @@ const UploadDeImagens = ({
 
   return (
     <Formulario noValidate autoComplete="off" onSubmit={(e) => validarForm(e)}>
+      <Loading ativo={loadingAtivo} />
       <Titulo>Dados do anunciante</Titulo>
       <input
         accept="image/png, image/jpeg"
