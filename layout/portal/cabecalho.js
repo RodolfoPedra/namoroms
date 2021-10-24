@@ -75,6 +75,9 @@ const Logo = styled.img`
   &:hover, &:focus {
     opacity: 0.7;
   }
+  @media screen and (max-width: 500px) {
+    width: 120px;
+  }
 `;
 
 const ContainerUsuario = styled.div`

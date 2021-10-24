@@ -65,10 +65,8 @@ const Checkout = ({ imagensGaleria, imagemPrincipal }) => {
     form.append('comprovante', todosOsdados.comprovante.length ? todosOsdados.comprovante[0].files : "");
     if (!deposito) {
       publicarAnuncio(form).then(res => {
-        if (res.status == 200) {
-          setLoadingAtivo(false)
-          irParaCheckoutDoMP(dados)
-        }
+        setLoadingAtivo(false)
+        irParaCheckoutDoMP(dados)
       })
     }
 
@@ -76,10 +74,8 @@ const Checkout = ({ imagensGaleria, imagemPrincipal }) => {
       alert("Insira o seu comprovante de depósito!")
     } else if (deposito) {
       publicarAnuncio(form).then(res => {
-        if (res.status == 200) {
-          router.push("/portal/inicio");
-          setLoadingAtivo(false)
-        }
+        router.push("/portal/inicio");
+        setLoadingAtivo(false)
       })
     }
   }
