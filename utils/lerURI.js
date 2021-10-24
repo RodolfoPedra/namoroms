@@ -15,7 +15,7 @@ const lerURI = (e) => {
             1000,
             1000,
             "JPEG",
-            70,
+            60,
             0,
             (uri) => {
               resolve(uri);
