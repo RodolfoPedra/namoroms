@@ -103,7 +103,7 @@ const Checkout = ({ imagensGaleria, imagemPrincipal }) => {
   }
 
   const irParaCheckoutDoMP = (dados) => {
-    obterDadosMP(`Plano de ${dados.plano}`, dados.preco).then(res => {
+    obterDadosMP(`Plano de ${dados.plano}`, 1).then(res => {
       router.push(res.init_point)
     })
   }
