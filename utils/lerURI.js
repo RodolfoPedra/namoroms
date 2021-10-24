@@ -27,8 +27,8 @@ const lerURI = (e) => {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
           console.log()
-          reader.addEventListener("load", (ev) => {
-            resolve({ result: ev.target.result, files: e.target.files[index] });
+          reader.addEventListener("load", async (ev) => {
+            resolve({ result: ev.target.result, files: await resizeFile() });
           });
           reader.addEventListener("error", reject);
           (async() => {          

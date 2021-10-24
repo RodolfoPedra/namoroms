@@ -80,6 +80,7 @@ const FormularioDeCriacaoDeConta = ({ irParaLogin }) => {
 
   const handleDocumentoFrente = (e) => {
     lerURI(e).then((imagem) => {
+      console.log('imagem frente: ', imagem);
       setDocumentoFrente(imagem);
     })
   }
