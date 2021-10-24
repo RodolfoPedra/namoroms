@@ -1,4 +1,4 @@
-var Jimp = require('jimp/es');
+import Resizer from 'react-image-file-resizer';
 
 const lerURI = (e) => {
   if (e.target.files) {
@@ -6,16 +6,23 @@ const lerURI = (e) => {
 
     return Promise.all(
       files.map((file, index) => {
-        const imagemProcessada = Jimp.read(file)
-          .then(
-            image => {
-              return image
-                .resize(1000, 1000)
-                .quality(60)
-            }
-          )
-
-        console.log(imagemProcessada)
+        
+   
+        const resizeFile = () =>
+        new Promise((resolve) => {
+          Resizer.imageFileResizer(
+            file,
+            1000,
+            1000,
+            "JPEG",
+            70,
+            0,
+            (uri) => {
+              resolve(uri);
+            },
+            "file"
+          );
+        });
 
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
@@ -24,7 +31,9 @@ const lerURI = (e) => {
             resolve({ result: ev.target.result, files: e.target.files[index] });
           });
           reader.addEventListener("error", reject);
-          reader.readAsDataURL(file);
+          (async() => {          
+            reader.readAsDataURL(await resizeFile());
+          })();
         });
       })
     );
