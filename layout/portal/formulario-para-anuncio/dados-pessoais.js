@@ -56,7 +56,7 @@ const DadosPessoais = ({ avancarEtapa }) => {
     return (
       <>
         Declaro que li e aceito os termos de uso.
-        <a target="_blank" style={{ color: "var(--primaria)", textDecoration: "underline" }} rel="noreferrer" href="https://google.com"> Ler termo</a>.
+        <a target="_blank" style={{ color: "var(--primaria)", textDecoration: "underline" }} rel="noreferrer" href="/termos-de-uso.pdf"> Ler termo</a>.
       </>
     )
   }
