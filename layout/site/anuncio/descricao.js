@@ -18,7 +18,7 @@ const Descricao = ({ dados }) => {
       <Contato>
         {
           dados.esseNumeroEhWhatsapp === "true" &&
-          <Link style={{ width: '100%' }} target="_blank" href={`https://api.whatsapp.com/send?phone=${dados.telefone}`}>
+          <Link style={{ width: '100%' }} target="_blank" href={`https://api.whatsapp.com/send?phone=+55${dados.telefone}`}>
             <LinkWhats variant="contained" color="primary" size="large">
               <img src="/whatsappp-logo.svg" />
               {dados.telefone}
