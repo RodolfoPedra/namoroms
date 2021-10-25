@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getAnunciosModeracao } from 'interface/controllers/pegar-anuncio-moderacao';
-import { postAprovarAnuncio } from 'api/controllers/aprovar-anuncio';
+import { postAprovarAnuncio } from 'interface/controllers/aprovar-anuncio';
 import ModalFoto from "layout/site/anuncio/modal-foto";
 import ModalDeDadosDoAnuncio from "layout/portal/moderacao/modal-de-dados-do-anuncio";
 import Loading from "components/loading";
