@@ -213,7 +213,7 @@ const DadosPessoais = ({ avancarEtapa }) => {
       <Autocomplete
         id="combo-box-demo"
         options={cidades}
-        getOptionLabel={(option) => option.nome}
+        getOptionLabel={(option) => option}
         fullWidth
         renderInput={(params) => <TextField error={errors?.cidade}
           {...register("cidade", { required: true })} {...params} label="Selecione sua cidade" variant="outlined" />}
