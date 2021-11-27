@@ -22,7 +22,7 @@ const Ficha = ({dados}) => {
       <ItemFicha><Icone nome="timer" />{dados.comecaAtender} às {dados.atendeAte}</ItemFicha>
 
       <TituloItem>Valor:</TituloItem>
-      {!dados.valorACombinar && <ItemFicha><Icone nome="attach_money" />{dados.valorDoPrograma}</ItemFicha>}
+      {dados.valorACombinar === "false" && <ItemFicha><Icone nome="attach_money" />{dados.valorDoPrograma}</ItemFicha>}
       {dados.valorACombinar === "true" && <ItemFicha><Icone nome="attach_money" />A combinar</ItemFicha>}
       {dados.aceitaCartao === "sim" && <ItemFicha><Icone nome="credit_card" />Aceito cartão</ItemFicha>}
 

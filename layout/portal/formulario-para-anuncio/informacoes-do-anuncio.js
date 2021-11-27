@@ -3,10 +3,22 @@ import React from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { salvarDadosDoFormulario } from "utils/storage";
+import { useRouter } from "next/router";
 import Icone from "components/icone";
 
 const InformacoesDoAnuncio = ({ avancarEtapa }) => {
-  const { register, getValues, formState: { errors }, handleSubmit } = useForm();
+  const router = useRouter();
+  const {editar} = router.query
+
+  if(editar) {
+    const {descricao} = JSON.parse(localStorage.getItem(editar));
+    
+    var { register, getValues, formState: { errors }, handleSubmit } = useForm({
+      defaultValues: {descricao}
+      });
+  } else {
+    var { register, getValues, formState: { errors }, handleSubmit } = useForm();
+  }
 
   const validarForm = () => {
     salvarDadosDoFormulario(getValues())

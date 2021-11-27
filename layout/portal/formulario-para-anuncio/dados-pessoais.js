@@ -19,11 +19,60 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { obterCidades } from "interface/cidades";
 import { salvarDadosDoFormulario } from "utils/storage";
+import { useRouter } from "next/router";
 import Icone from "components/icone";
 
 const DadosPessoais = ({ avancarEtapa }) => {
-  const [combinarValor, setCombinarValor] = useState(false)
-  const { register, getValues, formState: { errors }, handleSubmit } = useForm();
+  const [combinarValor, setCombinarValor] = useState(false);
+  const router = useRouter();
+  const {editar} = router.query
+
+  if(editar) {
+    const {    
+      tituloAnuncio,
+      sexo,
+      idade,
+      telefone,
+      esseNumeroEhWhatsapp,
+      atendeHomem,
+      atendeMulher,
+      atendeCasal,
+      cidade,
+      atendeEmLocalProprio,
+      atendeEmHotel,
+      atendeEmMotel,
+      casaDoCliente,
+      comecaAtender,
+      atendeAte,
+      valorDoPrograma,
+      aceitaCartao    
+    } = editar && JSON.parse(localStorage.getItem(editar));
+    
+    var { register, getValues, formState: { errors }, handleSubmit } = useForm({
+      defaultValues: {
+      tituloAnuncio, 
+      sexo, 
+      idade, 
+      telefone, 
+      esseNumeroEhWhatsapp: JSON.parse(esseNumeroEhWhatsapp),
+      atendeHomem: JSON.parse(atendeHomem),
+      atendeMulher: JSON.parse(atendeMulher),
+      atendeCasal: JSON.parse(atendeCasal), 
+      cidade, 
+      atendeEmLocalProprio: JSON.parse(atendeEmLocalProprio),
+      atendeEmHotel: JSON.parse(atendeEmHotel),
+      atendeEmMotel: JSON.parse(atendeEmMotel),
+      casaDoCliente: JSON.parse(casaDoCliente),
+      comecaAtender, 
+      atendeAte,
+      valorDoPrograma,
+      aceitaCartao
+      }
+      });
+  } else {
+    var { register, getValues, formState: { errors }, handleSubmit } = useForm();
+  }
+
   const [cidades, setCidades] = useState([]);
 
   const normalizarTelefone = (valor) => {
@@ -63,7 +112,7 @@ const DadosPessoais = ({ avancarEtapa }) => {
 
   return (
     <Formulario noValidate autoComplete="off" onSubmit={handleSubmit(validarForm)}>
-      <Titulo>Dados do anunciante</Titulo>
+      <Titulo>Dados do anúncio</Titulo>
 
       <TextField
         autoComplete="off"
@@ -85,6 +134,7 @@ const DadosPessoais = ({ avancarEtapa }) => {
           {...register("sexo", { required: true })}
           labelId="sexo-label"
           id="sexo"
+          defaultValue={getValues("sexo")}
         >
           <MenuItem value="mulher">Mulher</MenuItem>
           <MenuItem value="homem">Homem</MenuItem>
@@ -134,6 +184,7 @@ const DadosPessoais = ({ avancarEtapa }) => {
                 <Checkbox
                   color="primary"
                   {...register("esseNumeroEhWhatsapp")}
+                  defaultChecked={getValues("esseNumeroEhWhatsapp")}
                 />
               }
               label="Este número é Whatsapp"
@@ -150,6 +201,7 @@ const DadosPessoais = ({ avancarEtapa }) => {
               <Checkbox
                 color="primary"
                 {...register("atendeHomem")}
+                defaultChecked={getValues("atendeHomem")}
               />
             }
             label="Homem"
@@ -159,6 +211,7 @@ const DadosPessoais = ({ avancarEtapa }) => {
               <Checkbox
                 {...register("atendeMulher")}
                 color="primary"
+                defaultChecked={getValues("atendeMulher")}
               />
             }
             label="Mulher"
@@ -169,6 +222,7 @@ const DadosPessoais = ({ avancarEtapa }) => {
               <Checkbox
                 {...register("atendeCasal")}
                 color="primary"
+                defaultChecked={getValues("atendeCasal")}
               />
             }
             label="Casal"
@@ -214,6 +268,7 @@ const DadosPessoais = ({ avancarEtapa }) => {
         id="combo-box-demo"
         options={cidades}
         getOptionLabel={(option) => option}
+        defaultValue={getValues("cidade")}
         fullWidth
         renderInput={(params) => <TextField error={errors?.cidade}
           {...register("cidade", { required: true })} {...params} label="Selecione sua cidade" variant="outlined" />}
@@ -227,6 +282,7 @@ const DadosPessoais = ({ avancarEtapa }) => {
               <Checkbox
                 color="primary"
                 {...register("atendeEmLocalProprio")}
+                defaultChecked={getValues("atendeEmLocalProprio")}
               />
             }
             label="Local Próprio"
@@ -236,6 +292,7 @@ const DadosPessoais = ({ avancarEtapa }) => {
               <Checkbox
                 color="primary"
                 {...register("atendeEmHotel")}
+                defaultChecked={getValues("atendeEmHotel")}
               />
             }
             label="Hotel"
@@ -245,6 +302,7 @@ const DadosPessoais = ({ avancarEtapa }) => {
               <Checkbox
                 color="primary"
                 {...register("atendeEmMotel")}
+                defaultChecked={getValues("atendeEmMotel")}
               />
             }
             label="Motel"
@@ -254,6 +312,7 @@ const DadosPessoais = ({ avancarEtapa }) => {
               <Checkbox
                 color="primary"
                 {...register("casaDoCliente")}
+                defaultChecked={getValues("casaDoCliente")}
               />
             }
             label="Casa do cliente"
@@ -305,6 +364,7 @@ const DadosPessoais = ({ avancarEtapa }) => {
         <RadioGroup
           row
           aria-label="aceitaCartao"
+          defaultValue={getValues("aceitaCartao")}
         >
           <FormControlLabel
             value="nao"

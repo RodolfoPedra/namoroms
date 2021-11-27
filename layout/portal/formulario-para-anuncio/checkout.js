@@ -19,7 +19,9 @@ const Checkout = ({ imagensGaleria, imagemPrincipal }) => {
   const [comprovante, setComprovante] = useState([])
   const [loadingAtivo, setLoadingAtivo] = useState(false)
   const [tokenLS, setTokenST] = useState("")
-  const token = useSelector(state => state.token);
+  const {token, editarFotos} = useSelector(state => state);
+
+  const {editar} = router.query;
 
   useEffect(() => {
     !token && setTokenST(getState().token)
@@ -57,16 +59,29 @@ const Checkout = ({ imagensGaleria, imagemPrincipal }) => {
     form.append('tituloAnuncio', todosOsdados.tituloAnuncio);
     form.append('valorACombinar', todosOsdados.valorACombinar);
     form.append('valorDoPrograma', todosOsdados.valorDoPrograma);
-    form.append('imagemPrincipal', todosOsdados.imagemPrincipal[0].files);
     form.append('deposito', todosOsdados.deposito ? todosOsdados.deposito : "false");
-    todosOsdados.imagensGaleria.map((item, index) => {
+    !editar && !editarFotos && form.append('imagemPrincipal', todosOsdados.imagemPrincipal[0].files);
+    editar && editarFotos && form.append('imagemPrincipal', todosOsdados.imagemPrincipal[0].files);
+    
+    editar && form.append('slug', editar);
+    if(editar) {
+      const {usuario_id} = JSON.parse(localStorage.getItem(editar));
+      form.append('usuario_id', usuario_id);
+    }
+
+    !editar && !editarFotos && todosOsdados.imagensGaleria.map((item, index) => {
       form.append(`imageGaleria${index}`, item.files);
     });
-    form.append('comprovante', todosOsdados.comprovante.length ? todosOsdados.comprovante[0].files : "");
+
+    editar && editarFotos && todosOsdados.imagensGaleria.map((item, index) => {
+      form.append(`imageGaleria${index}`, item.files);
+    });
+
+    // form.append('comprovante', todosOsdados.comprovante.length ? todosOsdados.comprovante[0].files : "");
     if (!deposito) {
       publicarAnuncio(form).then(res => {
         setLoadingAtivo(false)
-        irParaCheckoutDoMP(dados)
+        // irParaCheckoutDoMP(dados)
       })
     }
 
@@ -83,7 +98,13 @@ const Checkout = ({ imagensGaleria, imagemPrincipal }) => {
   const publicarAnuncio = async (form) => {
     const anuncioCriado = await postAnuncio(form, token ? token : tokenLS);
     localStorage.setItem('idDoAnuncioCriado', JSON.stringify(anuncioCriado.data.id))
-    return anuncioCriado
+    if(anuncioCriado.status === 200) {
+      alert("Cadastro Finalizado com sucesso");
+      router.push("/portal/inicio/");
+    }else {
+      alert("Erro ao finalizar. MENSAGEM: ", anuncioCriado.statusText, anuncioCriado.status);
+    }
+    // return anuncioCriado
   }
 
   const handleComprovante = (e) => {
@@ -112,8 +133,9 @@ const Checkout = ({ imagensGaleria, imagemPrincipal }) => {
     <Loading ativo={loadingAtivo} />
     <Formulario noValidate autoComplete="off" onSubmit={handleSubmit(finalizarCadastro)}>
 
-      <Titulo>Pagamento</Titulo>
-      <FormControl fullWidth component="fieldset">
+    <Titulo>Plano Free</Titulo>
+      {/* <Titulo>Pagamento</Titulo> */}
+      {/* <FormControl fullWidth component="fieldset">
         <FormGroup row style={{ color: "white" }}>
           <FormControlLabel
             control={
@@ -127,9 +149,9 @@ const Checkout = ({ imagensGaleria, imagemPrincipal }) => {
             label="Desejo fazer o pagamento por depósito"
           />
         </FormGroup>
-      </FormControl>
+      </FormControl> */}
 
-      {!deposito &&
+      {/* {!deposito &&
         <div>
           <Button
             color="primary"
@@ -142,7 +164,7 @@ const Checkout = ({ imagensGaleria, imagemPrincipal }) => {
             Pagar com cartão
           </Button>
         </div>
-      }
+      } */}
 
       {deposito && <>
         <DadosParaDeposito>
@@ -181,11 +203,11 @@ const Checkout = ({ imagensGaleria, imagemPrincipal }) => {
       <BotaoFinalizacao variant="contained"
         color="primary"
         type="submit"
-        disabled={!comprovante.length}
+        // disabled={!comprovante.length}
         fullWidth
         startIcon={<Icone nome="check" />}
       >
-        Finalizar compra
+        {editar ? "Finalizar edição" : "Finalizar compra"}
       </BotaoFinalizacao>
     </Formulario >
   </>

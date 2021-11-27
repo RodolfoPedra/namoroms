@@ -3,11 +3,6 @@ import styled from "styled-components"
 import { useState } from 'react';
 import ModalFoto from './modal-foto';
 
-const Foto1 = "/exemple1.jpg"
-const Foto2 = "/exemple2.jpg"
-const Foto3 = "/exemple3.jpg"
-const Foto4 = "/exemple4.jpg"
-
 const Galeria = ({ dados }) => {
   let listaDeImagens = dados?.fotos.reduce((acc, item) => {
     return [
@@ -16,9 +11,9 @@ const Galeria = ({ dados }) => {
     ]
   }, []);
 
-  if (dados?.deposito) {
-    listaDeImagens.pop()
-  }
+  // if (dados?.deposito) {
+  //   listaDeImagens.shift()
+  // }
 
   const quantidadeDeFotos = listaDeImagens?.length
 
@@ -39,7 +34,7 @@ const Galeria = ({ dados }) => {
     setModalAberto(true)
   }
 
-  if (!dados) return null;
+  if (!dados?.fotos?.length) return null;
   return (
     <GaleriaScroll>
       <ContainerGaleria>

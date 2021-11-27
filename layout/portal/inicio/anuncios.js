@@ -1,7 +1,29 @@
 import React from "react"; import styled from "styled-components";
 import Tag from "components/tag";
+import { useRouter } from "next/router";
+import {deleteAnuncio} from 'interface/controllers/deletar-anuncio';
 
 const Anuncios = ({ anuncios }) => {
+
+  const router = useRouter();
+
+  const editarAnuncio = (slug) => {
+    localStorage.setItem(slug.id, JSON.stringify(slug));
+    router.push({
+      pathname: "/portal/formulario/",
+      query: {
+        editar: slug.id
+      }
+    });
+  }
+
+  const excluirAnuncio = async (slug) => {
+    if (confirm("Tem certeza que deseja excluir o anúncio")) {
+      await deleteAnuncio(slug.id)
+      router.reload();
+    } 
+  }
+
   return (
     <ListaDeAnuncios>
       {anuncios?.map((anuncio, index) => (
@@ -22,6 +44,12 @@ const Anuncios = ({ anuncios }) => {
           <div>
             <Label>PLANO:</Label>
             <Texto>{anuncio.planoEscolhido}</Texto>
+            <Texto onClick={() => editarAnuncio(anuncio)}>
+                <Tag editar>Editar</Tag>            
+            </Texto>
+            <Texto onClick={() => excluirAnuncio(anuncio)}>
+                <Tag excluir>Excluir</Tag>            
+            </Texto>
           </div>
         </Item>
       ))}
@@ -62,3 +90,4 @@ const Label = styled.label`
   margin-bottom: 0;
   font-size: 12px;
 `;
+

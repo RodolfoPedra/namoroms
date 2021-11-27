@@ -20,23 +20,24 @@ const FormularioDeLogin = ({ irParaCriacaoDeConta, state }) => {
     setLoadingAtivo(true)
 
     try {
-      const { data, status } = await autenticar({ "username": user.email, "password": user.senha });
-      if (status === 200) {
+      const data = await autenticar({ "username": user.email, "password": user.senha });
+      
+      if (data.status == 200) {        
         dispatch({
           type: 'token',
-          token: data.token
+          token: data.data.token
         })
         dispatch({
           type: 'nomeUsuario',
-          nomeUsuario: data.user_display_name
+          nomeUsuario: data.data.user_display_name
         })
         dispatch({
           type: 'usuarioId',
-          usuarioId: data.user_email
+          usuarioId: data.data.user_email
         })
-        localStorage.setItem("nomeUsuario", data.user_display_name);
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("usuarioId", data.user_email);
+        localStorage.setItem("nomeUsuario", data.data.displayName);
+        localStorage.setItem("token", data.data.token);
+        localStorage.setItem("usuarioId", data.data.email);
         router.push("/portal/inicio");
       }
     } catch (error) {

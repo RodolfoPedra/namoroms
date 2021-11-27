@@ -142,24 +142,32 @@ const DadosParaDeposito = styled.div`
   }
 `;
 
-
 const planos = [
   {
     nome: "30 dias",
-    preco: 100,
+    preco: 0,
     dias: 30,
-    descricao: 'Ganhe o dobro de dias ao escolher este plano.'
-  },
-  {
-    nome: "15 dias",
-    preco: 55,
-    dias: 15,
-    descricao: 'Ganhe o dobro de dias ao escolher este plano.'
-  },
-  {
-    nome: "7 dias",
-    preco: 30,
-    dias: 7,
-    descricao: 'Ganhe o dobro de dias ao escolher este plano.'
-  },
+    descricao: 'Plano free'
+  }
 ];
+
+// const planos = [
+//   {
+//     nome: "30 dias",
+//     preco: 100,
+//     dias: 30,
+//     descricao: 'Ganhe o dobro de dias ao escolher este plano.'
+//   },
+//   {
+//     nome: "15 dias",
+//     preco: 55,
+//     dias: 15,
+//     descricao: 'Ganhe o dobro de dias ao escolher este plano.'
+//   },
+//   {
+//     nome: "7 dias",
+//     preco: 30,
+//     dias: 7,
+//     descricao: 'Ganhe o dobro de dias ao escolher este plano.'
+//   },
+// ];

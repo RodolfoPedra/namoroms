@@ -57,15 +57,16 @@ const ModeracaoDeAnuncios = () => {
       ]
     }, []);
 
-    if (anuncio?.deposito) {
-      listaDeImagens.pop()
-    }
+    // if (anuncio?.deposito) {
+    //   listaDeImagens.pop()
+    // }
 
     return listaDeImagens
   }
 
   const aprovarAnuncio = async (slug) => {
     const aprovado = await postAprovarAnuncio(slug);
+
     aprovado.status === 200 && location.reload();
   }
 

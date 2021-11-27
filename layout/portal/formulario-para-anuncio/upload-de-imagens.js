@@ -1,9 +1,19 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import Icone from "components/icone";
 import lerURI from "utils/lerURI";
 import Button from "@material-ui/core/Button";
 import Loading from "components/loading";
+import {
+  FormControl,
+  FormLabel,
+  FormGroup,
+  FormControlLabel,
+  Checkbox
+} from "@material-ui/core";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import { initializeStore } from 'store/configureStore';
 
 const UploadDeImagens = ({
   imagensGaleria,
@@ -11,8 +21,22 @@ const UploadDeImagens = ({
   setImagensGaleria,
   setImagemPrincipal,
   avancarEtapa }) => {
+  const router = useRouter();
+  const {editar} = router.query
+
+  const reduxStore = initializeStore();
+  const { dispatch } = reduxStore;
   
-  const [loadingAtivo, setLoadingAtivo] = useState(false)
+  const [loadingAtivo, setLoadingAtivo] = useState(false);
+  const [checkedEditar, setCheckedEditar] = useState(false)
+
+  const editarImagem = (checked) => {
+    setCheckedEditar(checked);
+    dispatch({
+      type: 'editarFotos',
+      editarFotos: checked
+    })
+  }
 
   const handleImages = (e) => {
     setLoadingAtivo(true);
@@ -38,60 +62,160 @@ const UploadDeImagens = ({
     e.preventDefault();
     if (imagensGaleria.length && imagemPrincipal.length) {
       avancarEtapa()
-    } else alert("Insira as imagens para continuar")
+    } else if(!checkedEditar) {
+      avancarEtapa()
+    }
+    else alert("Insira as imagens para continuar")
   }
 
   return (
     <Formulario noValidate autoComplete="off" onSubmit={(e) => validarForm(e)}>
       <Loading ativo={loadingAtivo} />
-      <Titulo>Dados do anunciante</Titulo>
-      <input
+      <Titulo>Imagens do anúncio</Titulo>
+
+      {
+        editar &&
+          <FormControl fullWidth component="fieldset" >
+            <FormGroup row style={{ color: "white" }}>
+              <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  onChange={({target}) => editarImagem(target.checked)}
+                />
+              }
+              label={"Em caso de edição das imagens do anúncio, marque a caixa ao lado"}
+              />
+            </FormGroup>
+          </FormControl>
+      }
+
+      {
+        checkedEditar &&
+        <> 
+        <input
         accept="image/png, image/jpeg"
         style={{ display: "none" }}
         type="file"
         id="imagens-galeria"
         multiple
         onChange={(e) => handleImages(e)}
-      />
-      <BotaoDeUpload htmlFor="imagens-galeria">
+        />
+        <BotaoDeUpload htmlFor="imagens-galeria">
         Selecione as imagens da galeria
-      </BotaoDeUpload>
-      {imagensGaleria?.length && imagensGaleria ? (
-        <ImagensParaGaleria>
-          {imagensGaleria?.map((imagem, index) => {
-            return (
-              <ContainerImagem key={index}>
-                <Imagem src={imagem.result} />
-                <BotaoExcluirImagem
-                  type="button"
-                  onClick={() => deletarImagemDaGaleria(index)}
-                >
-                  <Icone nome="clear" />
-                </BotaoExcluirImagem>
-              </ContainerImagem>
-            );
-          })}
-        </ImagensParaGaleria>
-      ) : (
-        ""
-      )}
-      <input
+        </BotaoDeUpload>
+        {
+          imagensGaleria?.length && imagensGaleria ? (
+            <ImagensParaGaleria>
+              {imagensGaleria?.map((imagem, index) => {
+                return (
+                  <ContainerImagem key={index}>
+                    <Imagem src={imagem.result} />
+                    <BotaoExcluirImagem
+                      type="button"
+                      onClick={() => deletarImagemDaGaleria(index)}
+                    >
+                      <Icone nome="clear" />
+                    </BotaoExcluirImagem>
+                  </ContainerImagem>
+                );
+              })}
+            </ImagensParaGaleria>
+          ) : (
+            ""
+          )
+        }
+        </>
+      }
+
+      {
+        checkedEditar && 
+        <>
+          <input
+            accept="image/png, image/jpeg"
+            style={{ display: "none" }}
+            type="file"
+            id="imagem-principal"
+            onChange={(e) => handleImagemPrincipal(e)}
+          />
+          <BotaoDeUpload htmlFor="imagem-principal">
+            Selecione uma imagem para destaque
+          </BotaoDeUpload>
+          {imagemPrincipal?.length ? (
+            <ContainerImagem>
+              <Imagem src={imagemPrincipal[0].result} />
+            </ContainerImagem>
+          ) : (
+            ""
+          )}
+        </>
+      }
+
+
+      {/* Deste bloco até o proximo comentário, acontece em caso de ser inserção de novo anúncio */}
+
+      {
+        !editar &&
+        <> 
+        <input
         accept="image/png, image/jpeg"
         style={{ display: "none" }}
         type="file"
-        id="imagem-principal"
-        onChange={(e) => handleImagemPrincipal(e)}
-      />
-      <BotaoDeUpload htmlFor="imagem-principal">
-        Selecione uma imagem para destaque
-      </BotaoDeUpload>
-      {imagemPrincipal?.length ? (
-        <ContainerImagem>
-          <Imagem src={imagemPrincipal[0].result} />
-        </ContainerImagem>
-      ) : (
-        ""
-      )}
+        id="imagens-galeria"
+        multiple
+        onChange={(e) => handleImages(e)}
+        />
+        <BotaoDeUpload htmlFor="imagens-galeria">
+        Selecione as imagens da galeria
+        </BotaoDeUpload>
+        {
+          imagensGaleria?.length && imagensGaleria ? (
+            <ImagensParaGaleria>
+              {imagensGaleria?.map((imagem, index) => {
+                return (
+                  <ContainerImagem key={index}>
+                    <Imagem src={imagem.result} />
+                    <BotaoExcluirImagem
+                      type="button"
+                      onClick={() => deletarImagemDaGaleria(index)}
+                    >
+                      <Icone nome="clear" />
+                    </BotaoExcluirImagem>
+                  </ContainerImagem>
+                );
+              })}
+            </ImagensParaGaleria>
+          ) : (
+            ""
+          )
+        }
+        </>
+      }
+
+{
+        !editar && 
+        <>
+          <input
+            accept="image/png, image/jpeg"
+            style={{ display: "none" }}
+            type="file"
+            id="imagem-principal"
+            onChange={(e) => handleImagemPrincipal(e)}
+          />
+          <BotaoDeUpload htmlFor="imagem-principal">
+            Selecione uma imagem para destaque
+          </BotaoDeUpload>
+          {imagemPrincipal?.length ? (
+            <ContainerImagem>
+              <Imagem src={imagemPrincipal[0].result} />
+            </ContainerImagem>
+          ) : (
+            ""
+          )}
+        </>
+      }
+
+      {/* Fim de bloco para inserção de novo anúncio */}
 
       <div>
         <Button variant="contained"

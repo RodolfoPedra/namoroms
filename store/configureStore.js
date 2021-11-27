@@ -11,6 +11,7 @@ const initialState = {
   anuncio: {},
   nomeUsuario: '',
   usuarioId: '',
+  editarFotos: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -45,6 +46,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         usuarioId: action.usuarioId,
       }
+    case 'editarFotos':
+      return {
+        ...state,
+        editarFotos: action.editarFotos,
+    }
     default:
       return state
   }
