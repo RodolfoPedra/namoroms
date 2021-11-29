@@ -1,7 +1,7 @@
 import postData from '../services/deletar-anuncio';
 
 
-export const deleteAnuncio = async (slug) => { 
-    const result = await postData(slug);
+export const deleteAnuncio = async (slug, token) => { 
+    const result = await postData(slug, token);
     return result;
 }

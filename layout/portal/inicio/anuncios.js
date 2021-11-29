@@ -1,11 +1,19 @@
-import React from "react"; import styled from "styled-components";
+import React, {useState, useEffect} from "react"; import styled from "styled-components";
 import Tag from "components/tag";
 import { useRouter } from "next/router";
 import {deleteAnuncio} from 'interface/controllers/deletar-anuncio';
+import { useSelector } from "react-redux";
+import { getState } from "utils/useLocalStorage";
 
 const Anuncios = ({ anuncios }) => {
+  const [tokenLS, setTokenST] = useState("")
+  const {token} = useSelector(state => state);
 
   const router = useRouter();
+
+  useEffect(() => {
+    getState().token && setTokenST(getState().token)
+  }, [])
 
   const editarAnuncio = (slug) => {
     localStorage.setItem(slug.id, JSON.stringify(slug));
@@ -19,7 +27,7 @@ const Anuncios = ({ anuncios }) => {
 
   const excluirAnuncio = async (slug) => {
     if (confirm("Tem certeza que deseja excluir o anúncio")) {
-      await deleteAnuncio(slug.id)
+      await deleteAnuncio(slug.id, token ? token : tokenLS)
       router.reload();
     } 
   }
